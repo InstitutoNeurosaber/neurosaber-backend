@@ -33,12 +33,10 @@ def create_app(
     dp_injector.setup_injections(app)
     dp_injector.apply_bindings()
 
+    # CORS configuration
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=[
-            settings.FRONTEND_URL,
-            "http://localhost:3000",
-        ],
+        allow_origins=["*"],  # libera acesso de qualquer site
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
@@ -54,6 +52,7 @@ def create_app(
 
     app.include_router(app_router)
     app.include_router(router)
+
     add_pagination(app)
 
     return app
