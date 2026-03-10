@@ -33,10 +33,13 @@ def create_app(
     dp_injector.setup_injections(app)
     dp_injector.apply_bindings()
 
-    # CORS configuration
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=["*"],  # libera acesso de qualquer site
+        allow_origins=[
+            "https://faculdadeneurosaber.com.br",
+            "https://www.faculdadeneurosaber.com.br",
+            "http://localhost:3000",
+        ],
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
@@ -52,7 +55,9 @@ def create_app(
 
     app.include_router(app_router)
     app.include_router(router)
-
     add_pagination(app)
 
     return app
+
+
+app = create_app()
